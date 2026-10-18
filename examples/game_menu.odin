@@ -85,21 +85,21 @@ Message :: enum {
 	Exit,
 }
 
-game_ui_update :: proc(using game_ui: ^Game_UI, msg: ^Message) {
-	if current != nil {
-		syl.element_remove_child(container, current)
-		current.padding = 0
+game_ui_update :: proc(game_ui: ^Game_UI, msg: ^Message) {
+	if game_ui.current != nil {
+		syl.element_remove_child(game_ui.container, game_ui.current)
+		game_ui.current.padding = 0
 	}
 
 	switch msg^ {
-		case .Start:    current = sub_menus.start
-		case .Network:  current = sub_menus.network
-		case .Settings: current = sub_menus.settings
-		case .Credits:  current = sub_menus.credits
-		case .Exit:     current = sub_menus.exit
+		case .Start:    game_ui.current = game_ui.sub_menus.start
+		case .Network:  game_ui.current = game_ui.sub_menus.network
+		case .Settings: game_ui.current = game_ui.sub_menus.settings
+		case .Credits:  game_ui.current = game_ui.sub_menus.credits
+		case .Exit:     game_ui.current = game_ui.sub_menus.exit
 	}
 
-	syl.element_add_child(container, current, use_transitions = true)
+	syl.element_add_child(game_ui.container, game_ui.current, use_transitions = true)
 }
 
 game_menu_ui :: proc() -> ^Game_UI {

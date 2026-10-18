@@ -477,8 +477,8 @@ layout_box_set_style:: proc(box: ^Layout_Box, new: ^Box_Style_Override, style: ^
 
 	if !(.Background_Color in box.overrides) {
         if use_transitions {
-            using transitions.background_color
-            animate_color(&box.background_color, background_color, duration, ease)
+            u := transitions.background_color
+            animate_color(&box.background_color, background_color, u.duration, u.ease)
         } else {
             box.background_color = background_color
         }
@@ -498,11 +498,11 @@ layout_box_set_style:: proc(box: ^Layout_Box, new: ^Box_Style_Override, style: ^
 
 	if !(.Padding in box.overrides) {
         if use_transitions {
-            using transitions.padding
-            animate_float(&box.padding[0], padding[0], duration, ease)
-            animate_float(&box.padding[1], padding[1], duration, ease)
-            animate_float(&box.padding[2], padding[2], duration, ease)
-            animate_float(&box.padding[3], padding[3], duration, ease)
+            u := transitions.padding
+            animate_float(&box.padding[0], padding[0], u.duration, u.ease)
+            animate_float(&box.padding[1], padding[1], u.duration, u.ease)
+            animate_float(&box.padding[2], padding[2], u.duration, u.ease)
+            animate_float(&box.padding[3], padding[3], u.duration, u.ease)
         } else {
             box.padding = padding
         }
@@ -517,11 +517,11 @@ layout_box_apply_style:: proc(box: ^Layout_Box, new: Box_Style_Override, use_tra
 
     if padding, ok := new.padding.?; ok && !(.Padding in box.overrides) {
         if t, ok := new.transitions.?; ok && use_transitions  {
-            using t.padding
-            animate_float(&box.padding[0], padding[0], duration, ease)
-            animate_float(&box.padding[1], padding[1], duration, ease)
-            animate_float(&box.padding[2], padding[2], duration, ease)
-            animate_float(&box.padding[3], padding[3], duration, ease)
+            u := t.padding
+            animate_float(&box.padding[0], padding[0], u.duration, u.ease)
+            animate_float(&box.padding[1], padding[1], u.duration, u.ease)
+            animate_float(&box.padding[2], padding[2], u.duration, u.ease)
+            animate_float(&box.padding[3], padding[3], u.duration, u.ease)
         } else {
             box.padding = padding
         }
@@ -529,8 +529,8 @@ layout_box_apply_style:: proc(box: ^Layout_Box, new: Box_Style_Override, use_tra
 
     if bg, ok := new.background_color.?; ok && !(.Background_Color in box.overrides) {
         if t, ok := new.transitions.?; ok && use_transitions {
-            using t.background_color
-            animate_color(&box.background_color, bg, duration, ease)
+            u := t.background_color
+            animate_color(&box.background_color, bg, u.duration, u.ease)
         } else {
             box.background_color = bg
         }

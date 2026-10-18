@@ -3,7 +3,6 @@ package main
 import syl "../"
 import renderer "../renderer/raylib"
 import "core:math/ease"
-import "core:fmt"
 import rl "vendor:raylib"
 
 GREEN :: [4]u8{175,194,30, 255}
@@ -83,13 +82,13 @@ Counter :: struct {
 	counter_label: ^syl.Text,
 }
 
-counter_update:: proc(using counter: ^Counter, message: ^Message) {
+counter_update:: proc(counter: ^Counter, message: ^Message) {
 	switch message^ {
-		case .Increment: count += 1
-		case .Decrement: count -= 1 
+		case .Increment: counter.count += 1
+		case .Decrement: counter.count -= 1 
 	}
 
-	syl.text_set_content(counter_label, "%d", count)
+	syl.text_set_content(counter.counter_label, "%d", counter.count)
 }
 
 counter_destroy :: proc(counter: ^Counter) {
