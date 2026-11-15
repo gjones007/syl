@@ -2,7 +2,6 @@ package syl
 
 import "core:time"
 import "core:math/ease"
-import "core:fmt"
 
 Transition :: struct {
     duration: f32,
@@ -33,7 +32,7 @@ Float_Transition :: struct {
 }
 
 update_transitions :: proc() {
-    curr_tick := time.tick_now()
+    // curr_tick := time.tick_now()
 
     for i := len(ctx.transitions.color) - 1; i >= 0; i -= 1 { 
         t := &ctx.transitions.color[i]

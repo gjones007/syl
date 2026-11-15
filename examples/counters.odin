@@ -2,7 +2,6 @@ package main
 
 import syl "../"
 import renderer "../renderer/raylib"
-import "core:math/ease"
 import rl "vendor:raylib"
 
 GREEN :: [4]u8{175,194,30, 255}
@@ -28,7 +27,7 @@ style_sheet := syl.Style_Sheet {
 			font_size = 18,
 			background_color = GREEN,
 			padding = {10,15,10,15},
-			border_radius = 8,
+			// border_radius = 8,
 			transitions = {
 				background_color = {0.05, .Linear},
 			},
@@ -55,7 +54,7 @@ primary_button := syl.Button_Styles_Override {
 		font_size = 18,
 		background_color = BLUE,
 		//padding = [4]f32{10,15,10,15},
-		border_radius = 8,
+		// border_radius = 8,
 		transitions = syl.Box_Transitions {
 			background_color = {0.05, .Linear},
 		},
@@ -114,9 +113,9 @@ counter :: proc() -> ^Counter {
 }
 
 main :: proc() {
-	rl.SetConfigFlags({.MSAA_4X_HINT})
+	rl.SetConfigFlags({.VSYNC_HINT})
 	rl.InitWindow(SCREEN_W, SCREEN_H, "Syl in Raylib")
-	rl.SetTargetFPS(60)
+	// rl.SetTargetFPS(60)
 
 	app := syl.box(
 		counter(), 

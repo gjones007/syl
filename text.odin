@@ -195,7 +195,7 @@ text_set_style_from_box_style_override :: proc(text: ^Text, new: Box_Style_Overr
 	text_color := default.text_color
 	size := default.font_size
 
-	if d, ok := delta.?; ok {
+	if d, ok2 := delta.?; ok2 {
 		if t, ok := d.text_color.?; ok {
 			text_color = t
 		}

@@ -2,7 +2,6 @@ package main
 
 import syl "../"
 import renderer "../renderer/raylib"
-import "core:math/ease"
 import rl "vendor:raylib"
 
 SCREEN_W :: 800
@@ -30,12 +29,12 @@ style_sheet := syl.Style_Sheet {
 			background_color = BACKGROUND_COLOR,
 			padding = {10,30,10,30},
 			// border with different colors
-			border_color = {
-				PRIMARY_COLOR, // top
-				MUTED,         // right
-				MUTED,         // bottom
-				PRIMARY_COLOR, // left
-			},
+			// border_color = {
+			// 	PRIMARY_COLOR, // top
+			// 	MUTED,         // right
+			// 	MUTED,         // bottom
+			// 	PRIMARY_COLOR, // left
+			// },
 			border_thickness = {2,2,2,12},
 			border_radius = {0,0,20,0},
 			transitions = {
@@ -46,11 +45,11 @@ style_sheet := syl.Style_Sheet {
 		hover = {
 			background_color = PRIMARY_COLOR,
 			text_color = PRIMARY_TEXT_COLOR,
-			border_color = PRIMARY_COLOR,
+			// border_color = PRIMARY_COLOR,
 		},
 		press = {
 			background_color = WHITE,
-			border_color = WHITE,
+			// border_color = WHITE,
 			padding = [4]f32{13,30,7,30},
 			transitions = syl.Box_Transitions{
 				background_color = {0, .Linear}
@@ -184,7 +183,7 @@ exit :: proc() -> ^syl.Box {
 }
 
 main :: proc() {
-	//rl.SetConfigFlags({.VSYNC_HINT})
+	rl.SetConfigFlags({.VSYNC_HINT})
 	rl.InitWindow(SCREEN_W, SCREEN_H, "Game Settings")
 	ui := game_menu_ui()
 

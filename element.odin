@@ -150,8 +150,7 @@ button_ensure_correct_messages_type :: proc(button: ^Button) {
 ensure_correct_messages_type :: proc(element: ^Element) {
 	switch element.type {
 		case .Box:
-			box := cast(^Box)element
-			
+			// box := cast(^Box)element			
 		case .Button:
 			button_ensure_correct_messages_type(auto_cast element)	
 		case .Text:

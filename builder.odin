@@ -2,7 +2,7 @@ package syl
 
 import "core:mem"
 import "base:runtime"
-import "core:fmt"
+import "core:strings"
 
 layout_box_init :: proc(
 	box: 			  ^Layout_Box,
@@ -158,7 +158,7 @@ text :: proc(
 	}
 	text.font = font
 	text.font_size = font_size
-	text.content = content
+	text.content = strings.clone(content)
 	if val, ok := color.?; ok {
 		text.color = val
 		text.overrides += {.Color}
@@ -248,8 +248,7 @@ button:: proc(
 	}
 
 	if val, ok := text_content.?; ok {
-		str := fmt.aprintf("%s", val)
-		button.text = text(str, wrap = false, font_size=18) 
+		button.text = text(val, wrap = false, font_size=18)
 		button.text.is_button_text = true
 		append_elem(&children_list, button.text)
 	}

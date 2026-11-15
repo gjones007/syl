@@ -3,7 +3,6 @@ package raylib_renderer
 import rl "vendor:raylib"
 import syl "../.."
 import "core:strings"
-import "core:fmt"
 
 mouse_buttons_map := [syl.Mouse]rl.MouseButton{
 	.LEFT    = .LEFT,
@@ -148,11 +147,11 @@ text_draw :: proc(text: ^syl.Text) {
     if len(text.lines) == 0 do return
 
     font_size: i32 = auto_cast text.font_size
-    line_height: f32 = f32(font_size)
+    // line_height: f32 = f32(font_size)
 
     //rl.DrawRectangleLines(i32(text.global_position.x), i32(text.global_position.y), i32(text.size.x), i32(text.size.y), rl.GRAY)
     
-    for line, i in text.lines {
+    for line in text.lines {
         line_cstr := strings.clone_to_cstring(line.content)
         defer delete(line_cstr)
 		if text.font == nil {

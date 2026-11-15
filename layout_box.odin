@@ -58,7 +58,7 @@ get_axis :: proc(direction: Layout_Direction) -> (int, int) {
 
 // Returns the prefered size and the minimum size of the element axis
 layout_box_fit:: proc(box: ^Layout_Box, axis: int) -> (f32, f32) {
-    primary_axis, cross_axis := get_axis(box.layout_direction)
+    primary_axis, _ := get_axis(box.layout_direction)
 
     size: f32
     min_size: f32
@@ -288,10 +288,10 @@ progressive_expand :: proc(box: ^Layout_Box, axis: int, remaining: f32) {
 
 handle_collapsing:: proc(box: ^Layout_Box, axis: int, remaining: f32) {
     // First, try to redistribute space among expandable children
-    remaining := redistribute_expandable(box, axis)
+    redistribute := redistribute_expandable(box, axis)
     
     // If still overflowing, shrink progressively
-    if remaining < 0 {
+    if redistribute < 0 {
         progressive_collapse(box, axis, remaining)
     }
 }
@@ -353,7 +353,6 @@ progressive_collapse:: proc(box: ^Layout_Box, axis: int, remaining: f32) {
         
         // Shrink all elements at the largest size
         for child, i in collapsible {
-            child := collapsible[i]
             if child.size[axis] == largest {
                 prev := child.size[axis]
                 child.size[axis] -= to_subtract
@@ -515,7 +514,7 @@ layout_box_apply_style:: proc(box: ^Layout_Box, new: Box_Style_Override, use_tra
 		box.gap = gap
 	}
 
-    if padding, ok := new.padding.?; ok && !(.Padding in box.overrides) {
+    if padding, ok2 := new.padding.?; ok2 && !(.Padding in box.overrides) {
         if t, ok := new.transitions.?; ok && use_transitions  {
             u := t.padding
             animate_float(&box.padding[0], padding[0], u.duration, u.ease)
@@ -527,7 +526,7 @@ layout_box_apply_style:: proc(box: ^Layout_Box, new: Box_Style_Override, use_tra
         }
     }
 
-    if bg, ok := new.background_color.?; ok && !(.Background_Color in box.overrides) {
+    if bg, ok2 := new.background_color.?; ok2 && !(.Background_Color in box.overrides) {
         if t, ok := new.transitions.?; ok && use_transitions {
             u := t.background_color
             animate_color(&box.background_color, bg, u.duration, u.ease)
